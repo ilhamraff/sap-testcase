@@ -20,7 +20,11 @@ export async function loginUser(
 
   if (!response.ok) {
     const errorMessage =
-      data?.message || "Username atau password salah. Silakan periksa kembali.";
+      data?.message === "Invalid credentials"
+        ? "Username atau password salah. Silakan periksa kembali."
+        : data?.message ||
+          "Terjadi kesalahan saat menghubungi server autentikasi.";
+
     throw new Error(errorMessage);
   }
 

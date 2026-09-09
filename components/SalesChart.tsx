@@ -1,4 +1,5 @@
 import { SalesItem } from "@/types";
+import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
   Bar,
@@ -28,7 +29,7 @@ export default function SalesChart({ data }: SalesChartProps) {
     return (
       <div className="bg-white rounded-xl border border-slate-200 p-6 h-80 flex items-center justify-center text-slate-400">
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+          <Loader2 className="w-4 h-4 text-indigo-500 animate-spin" />
           <span className="text-xs">Memuat visualisasi chart...</span>
         </div>
       </div>

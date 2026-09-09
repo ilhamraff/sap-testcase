@@ -10,6 +10,7 @@ import SalesChart from "@/components/SalesChart";
 import SummaryCards from "@/components/SummaryCard";
 import SearchFilter from "@/components/SearchFilter";
 import SalesTable from "@/components/SalesTable";
+import { Loader2 } from "lucide-react";
 
 export default function DashboardPage() {
   const { user, isLoading } = useAuth();
@@ -50,7 +51,7 @@ export default function DashboardPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-100">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-8 h-8 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+          <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
           <p className="text-xs font-medium text-slate-500">
             Memuat dashboard supervisor...
           </p>

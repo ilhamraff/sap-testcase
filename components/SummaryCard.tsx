@@ -1,5 +1,8 @@
 import { SalesItem } from "@/types";
-import { formatRupiah } from "@/lib/utils";
+import { cn, formatRupiah } from "@/lib/utils";
+import { Banknote, CheckCircle2, MapPin } from "lucide-react";
+
+export { formatRupiah };
 
 interface SummaryCardsProps {
   data: SalesItem[];
@@ -39,7 +42,10 @@ function MetricCard({
           </h3>
           {badge && (
             <span
-              className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${badgeColor}`}
+              className={cn(
+                "text-[11px] font-semibold px-2 py-0.5 rounded-full",
+                badgeColor,
+              )}
             >
               {badge}
             </span>
@@ -84,27 +90,7 @@ export default function SummaryCards({ data }: SummaryCardsProps) {
         subtitle={`Dari target rencana ${totalPlanned} kunjungan`}
         badge={`${Math.round((totalRealisasi / (totalPlanned || 1)) * 100)}% tercapai`}
         badgeColor="bg-blue-50 text-blue-700"
-        icon={
-          <svg
-            className="w-5 h-5 text-blue-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-            />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-            />
-          </svg>
-        }
+        icon={<MapPin className="w-5 h-5 text-blue-600" />}
       />
 
       {/* Rata-rata Efektivitas Tim */}
@@ -118,21 +104,7 @@ export default function SummaryCards({ data }: SummaryCardsProps) {
             ? "bg-emerald-50 text-emerald-700"
             : "bg-amber-50 text-amber-700"
         }
-        icon={
-          <svg
-            className="w-5 h-5 text-emerald-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        }
+        icon={<CheckCircle2 className="w-5 h-5 text-emerald-600" />}
       />
 
       {/* Total Nilai Order */}
@@ -142,21 +114,7 @@ export default function SummaryCards({ data }: SummaryCardsProps) {
         subtitle={`Akumulasi order berhasil (OOS: ${totalOOS} order)`}
         badge={`${data.length} Sales Aktif`}
         badgeColor="bg-indigo-50 text-indigo-700"
-        icon={
-          <svg
-            className="w-5 h-5 text-indigo-600"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        }
+        icon={<Banknote className="w-5 h-5 text-indigo-600" />}
       />
     </div>
   );
