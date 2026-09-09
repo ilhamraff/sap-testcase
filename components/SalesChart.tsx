@@ -27,9 +27,9 @@ export default function SalesChart({ data }: SalesChartProps) {
 
   if (!isMounted) {
     return (
-      <div className="bg-white rounded-xl border border-slate-200 p-6 h-80 flex items-center justify-center text-slate-400">
+      <div className="bg-white rounded-xl border border-platinum-200 p-6 h-80 flex items-center justify-center text-platinum-400">
         <div className="flex items-center gap-2">
-          <Loader2 className="w-4 h-4 text-indigo-500 animate-spin" />
+          <Loader2 className="w-4 h-4 text-dusk-blue-500 animate-spin" />
           <span className="text-xs">Memuat visualisasi chart...</span>
         </div>
       </div>
@@ -51,24 +51,24 @@ export default function SalesChart({ data }: SalesChartProps) {
   const TARGET_EFEKTIVITAS = 80;
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200/90 shadow-xs p-5">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-4 border-b border-slate-100 gap-2">
+    <div className="bg-white rounded-xl border border-platinum-200/90 shadow-xs p-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-4 border-b border-platinum-100 gap-2">
         <div>
-          <h3 className="text-sm font-bold text-slate-900">
+          <h3 className="text-sm font-bold text-platinum-900">
             Grafik Efektivitas Kunjungan Sales (%)
           </h3>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-platinum-500 mt-0.5">
             Perbandingan persentase efektivitas kunjungan lapangan terhadap
             target (80%)
           </p>
         </div>
-        <div className="flex items-center gap-3 text-xs text-slate-600">
+        <div className="flex items-center gap-3 text-xs text-platinum-600">
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-xs bg-indigo-600 inline-block" />
+            <span className="w-3 h-3 rounded-xs bg-dusk-blue-600 inline-block" />
             &ge; 80% Target
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-xs bg-amber-500 inline-block" />
+            <span className="w-3 h-3 rounded-xs bg-amber-bronze-500 inline-block" />
             &lt; 80% Perlu Ditingkatkan
           </span>
         </div>
@@ -83,22 +83,22 @@ export default function SalesChart({ data }: SalesChartProps) {
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
-              stroke="#f1f5f9"
+              stroke="#e0e7eb"
             />
             <XAxis
               dataKey="name"
-              tick={{ fill: "#64748b", fontSize: 12 }}
+              tick={{ fill: "#526b7a", fontSize: 12 }}
               tickLine={false}
-              axisLine={{ stroke: "#e2e8f0" }}
+              axisLine={{ stroke: "#c2cfd6" }}
               interval={0}
               angle={-10}
               textAnchor="end"
             />
             <YAxis
               domain={[0, 100]}
-              tick={{ fill: "#64748b", fontSize: 12 }}
+              tick={{ fill: "#526b7a", fontSize: 12 }}
               tickLine={false}
-              axisLine={{ stroke: "#e2e8f0" }}
+              axisLine={{ stroke: "#c2cfd6" }}
               tickFormatter={(val) => `${val}%`}
             />
             <Tooltip
@@ -106,24 +106,24 @@ export default function SalesChart({ data }: SalesChartProps) {
                 if (active && payload && payload.length) {
                   const d = payload[0].payload;
                   return (
-                    <div className="bg-slate-900 text-white p-3 rounded-lg shadow-lg text-xs space-y-1 border border-slate-800">
-                      <p className="font-bold text-sm text-indigo-300">
+                    <div className="bg-platinum-900 text-white p-3 rounded-lg shadow-lg text-xs space-y-1 border border-platinum-800">
+                      <p className="font-bold text-sm text-dusk-blue-300">
                         {d.name}
                       </p>
-                      <p className="text-slate-300">Area: {d.area}</p>
+                      <p className="text-platinum-300">Area: {d.area}</p>
                       <p className="font-semibold text-white">
                         Efektivitas:{" "}
                         <span
                           className={
                             d.efektivitas >= TARGET_EFEKTIVITAS
-                              ? "text-emerald-400 font-bold"
-                              : "text-amber-400 font-bold"
+                              ? "text-jade-400 font-bold"
+                              : "text-amber-bronze-300 font-bold"
                           }
                         >
                           {d.efektivitas}%
                         </span>
                       </p>
-                      <p className="text-slate-400">
+                      <p className="text-platinum-400">
                         Kunjungan: {d.realisasi} realisasi / {d.planned} rencana
                       </p>
                     </div>
@@ -139,12 +139,12 @@ export default function SalesChart({ data }: SalesChartProps) {
             />
             <ReferenceLine
               y={TARGET_EFEKTIVITAS}
-              stroke="#ef4444"
+              stroke="#df3b5d"
               strokeDasharray="4 4"
               label={{
                 value: "Target 80%",
                 position: "right",
-                fill: "#ef4444",
+                fill: "#df3b5d",
                 fontSize: 11,
               }}
             />
@@ -159,8 +159,8 @@ export default function SalesChart({ data }: SalesChartProps) {
                   key={`cell-${index}`}
                   fill={
                     entry.efektivitas >= TARGET_EFEKTIVITAS
-                      ? "#4f46e5"
-                      : "#f59e0b"
+                      ? "#3e7bc1"
+                      : "#d47e1d"
                   }
                 />
               ))}

@@ -22,22 +22,22 @@ function MetricCard({
   value,
   subtitle,
   badge,
-  badgeColor = "bg-slate-100 text-slate-700",
+  badgeColor = "bg-platinum-100 text-platinum-700",
   icon,
 }: SingleCardProps) {
   return (
-    <div className="bg-white rounded-xl border border-slate-200/90 p-5 shadow-xs hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-xl border border-platinum-200/90 p-5 shadow-xs hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+        <span className="text-xs font-semibold text-platinum-500 uppercase tracking-wider">
           {title}
         </span>
-        <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-100 text-slate-600">
+        <div className="p-2.5 rounded-lg bg-platinum-50 border border-platinum-100 text-platinum-600">
           {icon}
         </div>
       </div>
       <div className="mt-3">
         <div className="flex items-baseline gap-2">
-          <h3 className="text-2xl font-bold text-slate-900 tracking-tight">
+          <h3 className="text-2xl font-bold text-platinum-900 tracking-tight">
             {value}
           </h3>
           {badge && (
@@ -51,7 +51,7 @@ function MetricCard({
             </span>
           )}
         </div>
-        <p className="text-xs text-slate-500 mt-1">{subtitle}</p>
+        <p className="text-xs text-platinum-500 mt-1">{subtitle}</p>
       </div>
     </div>
   );
@@ -89,8 +89,8 @@ export default function SummaryCards({ data }: SummaryCardsProps) {
         value={`${totalRealisasi} Visit`}
         subtitle={`Dari target rencana ${totalPlanned} kunjungan`}
         badge={`${Math.round((totalRealisasi / (totalPlanned || 1)) * 100)}% tercapai`}
-        badgeColor="bg-blue-50 text-blue-700"
-        icon={<MapPin className="w-5 h-5 text-blue-600" />}
+        badgeColor="bg-dusk-blue-50 text-dusk-blue-700"
+        icon={<MapPin className="w-5 h-5 text-dusk-blue-600" />}
       />
 
       {/* Rata-rata Efektivitas Tim */}
@@ -101,10 +101,17 @@ export default function SummaryCards({ data }: SummaryCardsProps) {
         badge={avgEfektivitas >= 80 ? "Sangat Baik" : "Perlu Perhatian"}
         badgeColor={
           avgEfektivitas >= 80
-            ? "bg-emerald-50 text-emerald-700"
-            : "bg-amber-50 text-amber-700"
+            ? "bg-jade-50 text-jade-700"
+            : "bg-amber-bronze-50 text-amber-bronze-700"
         }
-        icon={<CheckCircle2 className="w-5 h-5 text-emerald-600" />}
+        icon={
+          <CheckCircle2
+            className={cn(
+              "w-5 h-5",
+              avgEfektivitas >= 80 ? "text-jade-600" : "text-amber-bronze-600",
+            )}
+          />
+        }
       />
 
       {/* Total Nilai Order */}
@@ -113,8 +120,8 @@ export default function SummaryCards({ data }: SummaryCardsProps) {
         value={formatRupiah(totalNilaiOrder)}
         subtitle={`Akumulasi order berhasil (OOS: ${totalOOS} order)`}
         badge={`${data.length} Sales Aktif`}
-        badgeColor="bg-indigo-50 text-indigo-700"
-        icon={<Banknote className="w-5 h-5 text-indigo-600" />}
+        badgeColor="bg-dusk-blue-50 text-dusk-blue-700"
+        icon={<Banknote className="w-5 h-5 text-dusk-blue-600" />}
       />
     </div>
   );

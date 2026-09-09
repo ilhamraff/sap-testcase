@@ -39,7 +39,7 @@ function SortIndicator({
   if (!isActive) {
     return (
       <ArrowUpDown
-        className="w-3.5 h-3.5 text-slate-300 group-hover:text-slate-500 transition-colors shrink-0"
+        className="w-3.5 h-3.5 text-platinum-300 group-hover:text-platinum-500 transition-colors shrink-0"
         aria-hidden="true"
       />
     );
@@ -47,12 +47,12 @@ function SortIndicator({
 
   return direction === "asc" ? (
     <ArrowUp
-      className="w-3.5 h-3.5 text-indigo-600 shrink-0 animate-in fade-in"
+      className="w-3.5 h-3.5 text-dusk-blue-600 shrink-0 animate-in fade-in"
       aria-label="Urutkan menaik"
     />
   ) : (
     <ArrowDown
-      className="w-3.5 h-3.5 text-indigo-600 shrink-0 animate-in fade-in"
+      className="w-3.5 h-3.5 text-dusk-blue-600 shrink-0 animate-in fade-in"
       aria-label="Urutkan menurun"
     />
   );
@@ -64,12 +64,22 @@ export default function SalesTable({ data }: SalesTableProps) {
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
-      if (sortDirection === "asc") {
-        setSortDirection("desc");
+      if (field === "nama_sales" || field === "area") {
+        // Kolom teks: asc (A-Z) -> desc (Z-A) -> reset
+        if (sortDirection === "asc") {
+          setSortDirection("desc");
+        } else {
+          setSortField(null);
+          setSortDirection("asc");
+        }
       } else {
-        // Siklus ketiga: kembalikan ke urutan default dataset
-        setSortField(null);
-        setSortDirection("asc");
+        // Kolom angka/performa: desc (tertinggi) -> asc (terendah) -> reset
+        if (sortDirection === "desc") {
+          setSortDirection("asc");
+        } else {
+          setSortField(null);
+          setSortDirection("desc");
+        }
       }
     } else {
       const initialDirection: SortDirection =
@@ -116,15 +126,15 @@ export default function SalesTable({ data }: SalesTableProps) {
   }
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
-      <div className="px-5 py-4 border-b border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+    <div className="bg-white rounded-xl border border-platinum-200/90 shadow-xs overflow-hidden">
+      <div className="px-5 py-4 border-b border-platinum-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
-          <h3 className="text-sm font-bold text-slate-900">
+          <h3 className="text-sm font-bold text-platinum-900">
             Rincian Performa Salesman
           </h3>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-platinum-500 mt-0.5">
             Daftar lengkap efektivitas kunjungan dan pencapaian order &bull;{" "}
-            <span className="text-indigo-600 font-medium">
+            <span className="text-dusk-blue-600 font-medium">
               Klik header kolom untuk mengurutkan
             </span>
           </p>
@@ -136,12 +146,12 @@ export default function SalesTable({ data }: SalesTableProps) {
                 setSortField(null);
                 setSortDirection("asc");
               }}
-              className="text-[11px] font-medium text-slate-500 hover:text-slate-800 bg-slate-100 hover:bg-slate-200/80 px-2.5 py-1 rounded-md transition-colors cursor-pointer"
+              className="text-[11px] font-medium text-platinum-600 hover:text-platinum-900 bg-platinum-100 hover:bg-platinum-200/80 px-2.5 py-1 rounded-md transition-colors cursor-pointer"
             >
               Reset Urutan
             </button>
           )}
-          <span className="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg">
+          <span className="text-xs font-semibold px-2.5 py-1 bg-platinum-100 text-platinum-700 rounded-lg">
             {data.length} Orang
           </span>
         </div>
@@ -151,12 +161,12 @@ export default function SalesTable({ data }: SalesTableProps) {
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse text-xs sm:text-sm">
           <thead>
-            <tr className="bg-slate-50/80 border-b border-slate-200 text-slate-500 font-semibold text-[11px] uppercase tracking-wider">
+            <tr className="bg-platinum-50/80 border-b border-platinum-200 text-platinum-600 font-semibold text-[11px] uppercase tracking-wider">
               {/* Nama Sales */}
               <th scope="col" className="py-3.5 px-5">
                 <button
                   onClick={() => handleSort("nama_sales")}
-                  className="group flex items-center gap-1.5 text-left font-semibold hover:text-slate-900 transition-colors cursor-pointer select-none"
+                  className="group flex items-center gap-1.5 text-left font-semibold hover:text-platinum-900 transition-colors cursor-pointer select-none"
                   title="Urutkan berdasarkan Nama Sales"
                 >
                   <span>Nama Sales</span>
@@ -254,41 +264,41 @@ export default function SalesTable({ data }: SalesTableProps) {
               const efektivitas = item.efektivitas_visit_persen;
               const badgeStyle =
                 efektivitas >= 85
-                  ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                  ? "bg-jade-50 text-jade-700 border-jade-200"
                   : efektivitas >= 70
-                    ? "bg-blue-50 text-blue-700 border-blue-200"
-                    : "bg-amber-50 text-amber-700 border-amber-200";
+                    ? "bg-dusk-blue-50 text-dusk-blue-700 border-dusk-blue-200"
+                    : "bg-amber-bronze-50 text-amber-bronze-700 border-amber-bronze-200";
 
               return (
                 <tr
                   key={`${item.nama_sales}-${index}`}
-                  className="hover:bg-slate-50/70 transition-colors"
+                  className="hover:bg-platinum-50/70 transition-colors"
                 >
                   {/* Nama Sales */}
-                  <td className="py-3.5 px-5 font-medium text-slate-900">
+                  <td className="py-3.5 px-5 font-medium text-platinum-900">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 font-semibold text-xs flex items-center justify-center shrink-0">
+                      <div className="w-7 h-7 rounded-full bg-dusk-blue-50 border border-dusk-blue-100 text-dusk-blue-700 font-semibold text-xs flex items-center justify-center shrink-0">
                         {item.nama_sales.charAt(0)}
                       </div>
-                      <span className="font-semibold text-slate-800">
+                      <span className="font-semibold text-platinum-800">
                         {item.nama_sales}
                       </span>
                     </div>
                   </td>
 
                   {/* Area */}
-                  <td className="py-3.5 px-4 text-slate-600">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">
+                  <td className="py-3.5 px-4 text-platinum-600">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-platinum-100 text-platinum-700 border border-platinum-200">
                       {item.area}
                     </span>
                   </td>
 
                   {/* Kunjungan (Realisasi / Target) */}
-                  <td className="py-3.5 px-4 text-center text-slate-700 font-medium">
-                    <span className="text-slate-900 font-semibold">
+                  <td className="py-3.5 px-4 text-center text-platinum-700 font-medium">
+                    <span className="text-platinum-900 font-semibold">
                       {item.kunjungan_realisasi}
                     </span>
-                    <span className="text-slate-400 font-normal">
+                    <span className="text-platinum-400 font-normal">
                       {" "}
                       / {item.kunjungan_planned} visit
                     </span>
@@ -305,15 +315,15 @@ export default function SalesTable({ data }: SalesTableProps) {
                       >
                         {item.efektivitas_visit_persen}%
                       </span>
-                      <div className="w-16 bg-slate-200 h-1.5 rounded-full overflow-hidden hidden sm:block">
+                      <div className="w-16 bg-platinum-200 h-1.5 rounded-full overflow-hidden hidden sm:block">
                         <div
                           className={cn(
                             "h-full rounded-full",
                             efektivitas >= 85
-                              ? "bg-emerald-500"
+                              ? "bg-jade-500"
                               : efektivitas >= 70
-                                ? "bg-blue-500"
-                                : "bg-amber-500",
+                                ? "bg-dusk-blue-500"
+                                : "bg-amber-bronze-500",
                           )}
                           style={{ width: `${Math.min(efektivitas, 100)}%` }}
                         />
@@ -322,20 +332,20 @@ export default function SalesTable({ data }: SalesTableProps) {
                   </td>
 
                   {/* Total Order (Rp) */}
-                  <td className="py-3.5 px-4 text-right font-semibold text-slate-900">
+                  <td className="py-3.5 px-4 text-right font-semibold text-platinum-900">
                     {formatRupiah(item.total_order_rp)}
                   </td>
 
                   {/* Jumlah Order Gagal OOS (Out of Stock) */}
                   <td className="py-3.5 px-5 text-center">
                     {item.jumlah_order_oos > 0 ? (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200">
-                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-crimson-50 text-crimson-700 border border-crimson-200">
+                        <span className="w-1.5 h-1.5 rounded-full bg-crimson-500" />
                         {item.jumlah_order_oos} kasus
                       </span>
                     ) : (
-                      <span className="text-xs text-emerald-600 font-medium flex items-center justify-center gap-1">
-                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <span className="text-xs text-jade-600 font-medium flex items-center justify-center gap-1">
+                        <Check className="w-3.5 h-3.5 text-jade-600" />
                         Nol OOS
                       </span>
                     )}

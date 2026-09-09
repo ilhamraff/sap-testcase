@@ -49,10 +49,10 @@ export default function DashboardPage() {
 
   if (isLoading || !user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-100">
+      <div className="min-h-screen flex items-center justify-center bg-platinum-100">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
-          <p className="text-xs font-medium text-slate-500">
+          <Loader2 className="w-8 h-8 text-dusk-blue-600 animate-spin" />
+          <p className="text-xs font-medium text-platinum-500">
             Memuat dashboard supervisor...
           </p>
         </div>
@@ -61,22 +61,22 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-platinum-50">
       <Header />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2">
           <div>
-            <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+            <h1 className="text-xl sm:text-2xl font-extrabold text-platinum-900 tracking-tight">
               Analisa Performa Salesman
             </h1>
-            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+            <p className="text-xs sm:text-sm text-platinum-500 mt-1">
               Monitoring efektivitas kunjungan lapangan, total pencapaian order,
               dan risiko out-of-stock (OOS).
             </p>
           </div>
-          <div className="self-start sm:self-auto flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-lg shadow-2xs text-xs text-slate-600">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <div className="self-start sm:self-auto flex items-center gap-2 px-3 py-1.5 bg-white border border-platinum-200 rounded-lg shadow-2xs text-xs text-platinum-600">
+            <span className="w-2 h-2 rounded-full bg-jade-500 animate-pulse" />
             <span>Region Jawa Barat &bull; 5 Territory</span>
           </div>
         </div>
@@ -109,7 +109,7 @@ export default function DashboardPage() {
         </section>
       </main>
 
-      <footer className="border-t border-slate-200 bg-white py-4 mt-12 text-center text-xs text-slate-400">
+      <footer className="border-t border-platinum-200 bg-white py-4 mt-12 text-center text-xs text-platinum-400">
         <p>&copy; {new Date().getFullYear()} Sales Automation Platform (SAP)</p>
       </footer>
     </div>

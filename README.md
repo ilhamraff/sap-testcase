@@ -1,4 +1,4 @@
-# Web Dashboard "Analisa Performa Salesman" - SAP (Sales Automation Platform)
+# Web Dashboard SAP (Sales Automation Platform)
 
 Aplikasi dashboard prototype untuk supervisor Sales Automation Platform (SAP) guna memantau dan menganalisa efektivitas kunjungan salesman lapangan, total pencapaian order, serta mendeteksi kendala pesanan gagal akibat kehabisan stok (_out-of-stock_ / OOS).
 
@@ -43,7 +43,7 @@ Autentikasi terhubung langsung ke REST API publik DummyJSON (`POST https://dummy
 | **Username** | `emilys`     |
 | **Password** | `emilyspass` |
 
-> 💡 _Catatan:_ Form login juga mendukung pengujian kredensial yang salah (misal: username atau password diisi sembarang) untuk melihat pesan penanganan error secara langsung dari API.
+> 💡 _Catatan:_ Form login juga mendukung pengujian kredensial yang salah (misal: username atau password diisi sembarang) untuk melihat pesan penanganan error.
 
 ---
 
@@ -57,20 +57,20 @@ Autentikasi terhubung langsung ke REST API publik DummyJSON (`POST https://dummy
 
 2. **Ringkasan Metrik Kinerja (Summary KPI Cards)**:
    - **Total Kunjungan Realisasi**: Akumulasi kunjungan aktual tim beserta persentase ketercapaian dari target rencana (`kunjungan_planned`).
-   - **Rata-rata Efektivitas Tim**: Rerata persentase efektivitas seluruh salesman dengan status indikator (*Sangat Baik* vs *Perlu Perhatian*).
-   - **Total Nilai Order (Rp)**: Akumulasi nilai pesanan yang berhasil dicatat dalam format mata uang Rupiah Indonesia (`IDR`), dilengkapi jumlah kasus *Out-of-Stock* (OOS).
+   - **Rata-rata Efektivitas Tim**: Rerata persentase efektivitas seluruh salesman dengan status indikator (_Sangat Baik_ vs _Perlu Perhatian_).
+   - **Total Nilai Order (Rp)**: Akumulasi nilai pesanan yang berhasil dicatat dalam format mata uang Rupiah Indonesia (`IDR`), dilengkapi jumlah kasus _Out-of-Stock_ (OOS).
 
 3. **Visualisasi Grafik Interaktif (Sales Chart)**:
-   - Diagram batang (*Bar Chart*) menggunakan Recharts untuk membandingkan efektivitas kunjungan antar salesman.
-   - Garis benchmark target efektivitas 80% (*Reference Line*).
+   - Diagram batang (_Bar Chart_) menggunakan Recharts untuk membandingkan efektivitas kunjungan antar salesman.
+   - Garis benchmark target efektivitas 80% (_Reference Line_).
    - Pewarnaan batang kondisional (Indigo untuk $\ge 80\%$, Amber untuk $< 80\%$) dan tooltip interaktif yang menampilkan detail data saat kursor diarahkan ke grafik.
-   - Dilengkapi *SSR mount guard* untuk menjamin rendering bebas kendala di Next.js.
+   - Dilengkapi _SSR mount guard_ untuk menjamin rendering bebas kendala di Next.js.
 
 4. **Filter Wilayah & Pencarian Real-Time**:
-   - Pencarian salesman berdasarkan nama secara *case-insensitive*.
+   - Pencarian salesman berdasarkan nama secara _case-insensitive_.
    - Dropdown filter area yang diekstrak secara dinamis dari dataset unik.
-   - Tombol *Reset Filter* yang muncul otomatis saat filter atau pencarian sedang aktif.
-   - Tampilan *empty state* yang informatif jika hasil pencarian tidak ditemukan.
+   - Tombol _Reset Filter_ yang muncul otomatis saat filter atau pencarian sedang aktif.
+   - Tampilan _empty state_ yang informatif jika hasil pencarian tidak ditemukan.
 
 5. **Tabel Rincian dengan Pengurutan Kolom Interaktif (Sorting)**:
    - Tabel performa komprehensif menampilkan seluruh metrik data sales.
@@ -83,17 +83,15 @@ Autentikasi terhubung langsung ke REST API publik DummyJSON (`POST https://dummy
 
 Berdasarkan rubrik penilaian kriteria teknis, berikut adalah alasan di balik arsitektur dan pustaka yang digunakan:
 
-| Teknologi / Pendekatan | Alasan Pemilihan & Manfaat Teknis |
-| :--- | :--- |
-| **Next.js (App Router)** | Menyediakan arsitektur berbasis komponen modern dengan pemisahan Client/Server Component yang efisien, manajemen layout terpusat (`layout.tsx`), serta optimasi aset bawaan Next.js. |
-| **TypeScript (Strict Mode)** | Menjamin integritas data dari API dan dataset mock dengan antarmuka bertipe ketat (`SalesItem`, `AuthUser`, `LoginResponse`). Mencegah *runtime error*, memudahkan *refactoring*, dan meningkatkan keterbacaan kode tim. |
-| **Tailwind CSS** | Menghasilkan kode CSS yang ramping, konsisten, dan sangat cepat dikembangkan dengan sistem *design tokens*. Memudahkan pembuatan tata letak responsif (*mobile-first*) untuk kebutuhan supervisor di perangkat desktop maupun tablet. |
-| **React Context API (`AuthContext`)** | Dipilih untuk manajemen state autentikasi global karena sifatnya yang *lightweight*, tanpa memerlukan dependensi eksternal berlebih (seperti Redux Toolkit atau Zustand) yang dapat menambah ukuran bundle aplikasi (*overkill*) untuk skala proyek saat ini. |
-| **Recharts** | Library visualisasi data deklaratif yang dibangun khusus di atas React SVG. Responsif terhadap ukuran kontainer (`ResponsiveContainer`), mudah dikustomisasi temanya, dan memiliki performa rendering yang sangat mulus. |
-| **Pemisahan Modular (`lib/utils.ts`)** | Fungsi pembantu umum seperti `formatRupiah` dan utilitas `cn` dipisahkan ke modul terdedikasi (`lib/utils.ts`) guna mendukung prinsip *Single Responsibility* dan *code reusability*. |
-| **React Hook Form + Zod** | Menangani form login dengan pendekatan deklaratif berbasis skema (*schema-driven validation*). Menghasilkan validasi input yang *type-safe*, pesan error yang jelas, dan performa tinggi tanpa *unnecessary re-renders*. |
-| **Lucide React** | Menyediakan ikon vektor yang konsisten, berbobot ringan, dan *tree-shakeable* otomatis, menggantikan SVG mentah demi meningkatkan keterbacaan serta kebersihan kode (*clean code*). |
-| **clsx + tailwind-merge (`cn`)** | Standar industri untuk menggabungkan nama class CSS Tailwind secara kondisional dengan penanganan resolusi konflik class yang aman dan efisien. |
+| Teknologi / Pendekatan                | Alasan Pemilihan & Manfaat Teknis                                                                                                                                                                                                                             |
+| :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Next.js (App Router)**              | Menyediakan arsitektur berbasis komponen modern dengan pemisahan Client/Server Component yang efisien, manajemen layout terpusat (`layout.tsx`), serta optimasi aset bawaan Next.js.                                                                          |
+| **TypeScript (Strict Mode)**          | Menjamin integritas data dari API dan dataset mock dengan antarmuka bertipe ketat (`SalesItem`, `AuthUser`, `LoginResponse`). Mencegah _runtime error_, memudahkan _refactoring_, dan meningkatkan keterbacaan kode tim.                                      |
+| **Tailwind CSS**                      | Menghasilkan kode CSS yang ramping, konsisten, dan sangat cepat dikembangkan dengan sistem _design tokens_. Memudahkan pembuatan tata letak responsif (_mobile-first_) untuk kebutuhan supervisor di perangkat desktop maupun tablet.                         |
+| **React Context API (`AuthContext`)** | Dipilih untuk manajemen state autentikasi global karena sifatnya yang _lightweight_, tanpa memerlukan dependensi eksternal berlebih (seperti Redux Toolkit atau Zustand) yang dapat menambah ukuran bundle aplikasi (_overkill_) untuk skala proyek saat ini. |
+| **Recharts**                          | Library visualisasi data deklaratif yang dibangun khusus di atas React SVG. Responsif terhadap ukuran kontainer (`ResponsiveContainer`), mudah dikustomisasi temanya, dan memiliki performa rendering yang sangat mulus.                                      |
+| **React Hook Form + Zod**             | Menangani form login dengan pendekatan deklaratif berbasis skema (_schema-driven validation_). Menghasilkan validasi input yang _type-safe_, pesan error yang jelas, dan performa tinggi tanpa _unnecessary re-renders_.                                      |
+| **Lucide React**                      | Menyediakan ikon vektor yang konsisten, berbobot ringan, dan _tree-shakeable_ otomatis, menggantikan SVG mentah demi meningkatkan keterbacaan serta kebersihan kode (_clean code_).                                                                           |
 
 ---
 
@@ -109,10 +107,10 @@ Sesuai dengan arahan pada dokumen soal (halaman 2 & 5) mengenai penulisan asumsi
    - **Asumsi**: Aplikasi mengadopsi key yang tersedia pada JSON dataset contoh resmi (`nama_sales`, `area`, `kunjungan_planned`, `kunjungan_realisasi`, `efektivitas_visit_persen`, `total_order_rp`, `jumlah_order_oos`) untuk menjaga validasi tipe data TypeScript dan keakuratan kalkulasi.
 
 3. **Manajemen Sesi Autentikasi**:
-   - Sesuai klausul soal (*"Token/nama pengguna cukup disimpan di state aplikasi atau localStorage"*), kredensial dan token disimpan di `localStorage` peramban klien. Hal ini memungkinkan sesi login tetap bertahan ketika halaman di-*refresh* tanpa membutuhkan server database session tambahan.
+   - Sesuai klausul soal (_"Token/nama pengguna cukup disimpan di state aplikasi atau localStorage"_), kredensial dan token disimpan di `localStorage` peramban klien. Hal ini memungkinkan sesi login tetap bertahan ketika halaman di-_refresh_ tanpa membutuhkan server database session tambahan.
 
 4. **Penanganan Kasus Out-of-Stock (OOS)**:
-   - Jumlah pesanan gagal karena stok kosong dianggap sebagai metrik risiko operasional. Pada tabel, nilai 0 OOS ditampilkan sebagai kondisi positif (*Nol OOS* dengan centang hijau), sementara nilai $> 0$ diberi penanda waspada berupa badge peringatan warna merah.
+   - Jumlah pesanan gagal karena stok kosong dianggap sebagai metrik risiko operasional. Pada tabel, nilai 0 OOS ditampilkan sebagai kondisi positif (_Nol OOS_ dengan centang hijau), sementara nilai $> 0$ diberi penanda waspada berupa badge peringatan warna merah.
 
 ---
 

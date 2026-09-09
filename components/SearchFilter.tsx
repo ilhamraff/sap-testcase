@@ -20,11 +20,11 @@ export default function SearchFilter({
   const isFiltered = searchQuery !== "" || selectedArea !== "";
 
   return (
-    <div className="bg-white p-4 rounded-xl border border-slate-200/90 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div className="bg-white p-4 rounded-xl border border-platinum-200/90 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
         {/* Input Search Nama Sales */}
         <div className="relative flex-1 max-w-md">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-platinum-400">
             <Search className="w-4 h-4" />
           </div>
           <input
@@ -32,12 +32,12 @@ export default function SearchFilter({
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Cari salesman (misal: Dimas, Siti)..."
-            className="w-full pl-9 pr-8 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-hidden focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all"
+            className="w-full pl-9 pr-8 py-2 bg-platinum-50 border border-platinum-200 rounded-lg text-xs sm:text-sm text-platinum-800 placeholder:text-platinum-400 focus:outline-hidden focus:bg-white focus:ring-2 focus:ring-dusk-blue-500 focus:border-dusk-blue-500 transition-all"
           />
           {searchQuery && (
             <button
               onClick={() => onSearchChange("")}
-              className="absolute inset-y-0 right-0 pr-2.5 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer"
+              className="absolute inset-y-0 right-0 pr-2.5 flex items-center text-platinum-400 hover:text-platinum-600 cursor-pointer"
               title="Hapus pencarian"
             >
               <X className="w-4 h-4" />
@@ -50,7 +50,7 @@ export default function SearchFilter({
           <select
             value={selectedArea}
             onChange={(e) => onAreaChange(e.target.value)}
-            className="w-full py-2 px-3 bg-slate-50 border border-slate-200 rounded-lg text-xs sm:text-sm text-slate-800 focus:outline-hidden focus:bg-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all cursor-pointer"
+            className="w-full py-2 px-3 bg-platinum-50 border border-platinum-200 rounded-lg text-xs sm:text-sm text-platinum-800 focus:outline-hidden focus:bg-white focus:ring-2 focus:ring-dusk-blue-500 focus:border-dusk-blue-500 transition-all cursor-pointer"
           >
             <option value="">Semua Area Penjualan</option>
             {areaList.map((area) => (
@@ -66,7 +66,7 @@ export default function SearchFilter({
       {isFiltered && (
         <button
           onClick={onReset}
-          className="self-start sm:self-auto inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200/80 rounded-lg transition-colors cursor-pointer"
+          className="self-start sm:self-auto inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-platinum-600 hover:text-platinum-900 bg-platinum-100 hover:bg-platinum-200/80 rounded-lg transition-colors cursor-pointer"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span>Reset Filter</span>

@@ -1,27 +1,85 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f0f3f5;
+  --foreground: #141b1f;
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Platinum (Neutral / Surface) */
+  --color-platinum-50: #f0f3f5;
+  --color-platinum-100: #e0e7eb;
+  --color-platinum-200: #c2cfd6;
+  --color-platinum-300: #a3b7c2;
+  --color-platinum-400: #859ead;
+  --color-platinum-500: #668699;
+  --color-platinum-600: #526b7a;
+  --color-platinum-700: #3d515c;
+  --color-platinum-800: #29363d;
+  --color-platinum-900: #141b1f;
+  --color-platinum-950: #0e1315;
+
+  /* Dusk Blue (Primary Brand) */
+  --color-dusk-blue-50: #ecf2f9;
+  --color-dusk-blue-100: #d8e5f3;
+  --color-dusk-blue-200: #b2cae6;
+  --color-dusk-blue-300: #8bb0da;
+  --color-dusk-blue-400: #6596cd;
+  --color-dusk-blue-500: #3e7bc1;
+  --color-dusk-blue-600: #32639a;
+  --color-dusk-blue-700: #254a74;
+  --color-dusk-blue-800: #19314d;
+  --color-dusk-blue-900: #0c1927;
+  --color-dusk-blue-950: #09111b;
+
+  /* Amber Bronze (Secondary / Accent Warm) */
+  --color-amber-bronze-50: #fdf8f0;
+  --color-amber-bronze-100: #fbedd8;
+  --color-amber-bronze-200: #f6d8ae;
+  --color-amber-bronze-300: #eebf7e;
+  --color-amber-bronze-400: #e49e47;
+  --color-amber-bronze-500: #d47e1d;
+  --color-amber-bronze-600: #bb6214;
+  --color-amber-bronze-700: #964713;
+  --color-amber-bronze-800: #7b3917;
+  --color-amber-bronze-900: #421d09;
+  --color-amber-bronze-950: #260e04;
+
+  /* Crimson Rose (Semantic - Error / Danger) */
+  --color-crimson-50: #fdf2f4;
+  --color-crimson-100: #fce4e8;
+  --color-crimson-200: #faccd5;
+  --color-crimson-300: #f5a3b3;
+  --color-crimson-400: #ed6d87;
+  --color-crimson-500: #df3b5d;
+  --color-crimson-600: #c62346;
+  --color-crimson-700: #a31735;
+  --color-crimson-800: #88162e;
+  --color-crimson-900: #470c17;
+  --color-crimson-950: #29040a;
+
+  /* Jade Emerald (Semantic - Success) */
+  --color-jade-50: #ecf9f3;
+  --color-jade-100: #d4f2e3;
+  --color-jade-200: #aee5cc;
+  --color-jade-300: #7bd3af;
+  --color-jade-400: #46ba8f;
+  --color-jade-500: #249e73;
+  --color-jade-600: #167f5b;
+  --color-jade-700: #12664b;
+  --color-jade-800: #10513d;
+  --color-jade-900: #0b2d22;
+  --color-jade-950: #051a13;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: var(--color-platinum-50);
+  color: var(--color-platinum-900);
   font-family:
     var(--font-geist-sans),
     system-ui,
