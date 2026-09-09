@@ -2,6 +2,16 @@
 
 Aplikasi dashboard prototype untuk supervisor Sales Automation Platform (SAP) guna memantau dan menganalisa efektivitas kunjungan salesman lapangan, total pencapaian order, serta mendeteksi kendala pesanan gagal akibat kehabisan stok (_out-of-stock_ / OOS).
 
+> 🌐 **Live Demo Website:** [https://sap-testcase-demo.vercel.app/](https://sap-testcase-demo.vercel.app/)
+
+---
+
+## Preview Antarmuka
+
+| Halaman Login | Halaman Dashboard |
+| :---: | :---: |
+| ![Preview Login](./public/images/screenshoot-login.png) | ![Preview Dashboard](./public/images/screenshoot-dashboard.png) |
+
 ---
 
 ## Panduan Instalasi & Menjalankan Aplikasi
