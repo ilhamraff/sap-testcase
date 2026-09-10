@@ -1,6 +1,6 @@
 import { SalesItem } from "@/types";
 import { Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import {
   Bar,
   BarChart,
@@ -18,12 +18,14 @@ interface SalesChartProps {
   data: SalesItem[];
 }
 
-export default function SalesChart({ data }: SalesChartProps) {
-  const [isMounted, setIsMounted] = useState<boolean>(false);
+const emptySubscribe = () => () => {};
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+export default function SalesChart({ data }: SalesChartProps) {
+  const isMounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   if (!isMounted) {
     return (

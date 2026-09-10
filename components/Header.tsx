@@ -1,32 +1,74 @@
+"use client";
+
 import { useAuth } from "@/context/AuthContext";
-import { BarChart3, LogOut } from "lucide-react";
+import { LogOut, Menu } from "lucide-react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-export default function Header() {
+interface HeaderProps {
+  onOpenMobileSidebar?: () => void;
+}
+
+export default function Header({ onOpenMobileSidebar }: HeaderProps) {
   const { user, logout } = useAuth();
   const [imageError, setImageError] = useState<boolean>(false);
+  const pathname = usePathname();
+
+  // Dynamic breadcrumb / title
+  const getPageTitle = () => {
+    if (pathname.startsWith("/dashboard/area")) {
+      return { section: "Distrilink SAP", page: "Analisa Wilayah & Territory" };
+    }
+    if (pathname.startsWith("/dashboard/oos")) {
+      return { section: "Distrilink SAP", page: "Monitoring Out-of-Stock (OOS)" };
+    }
+    if (pathname.startsWith("/dashboard/panduan")) {
+      return { section: "Distrilink SAP", page: "Panduan & Glosarium SFA" };
+    }
+    return { section: "Distrilink SAP", page: "Analisa Performa Salesman" };
+  };
+
+  const currentRoute = getPageTitle();
 
   return (
-    <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-platinum-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="inline-flex items-center justify-center w-10 h-10 bg-dusk-blue-600 rounded-xl backdrop-blur-xs border border-white/20 shadow-xs shadow-dusk-blue-200">
-            <BarChart3 className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-platinum-900 tracking-tight text-base sm:text-lg">
-                SAP Analytics
-              </span>
-              <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-semibold bg-dusk-blue-50 text-dusk-blue-700 border border-dusk-blue-200/70 rounded-full">
-                Supervisor
+    <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-platinum-200">
+      <div className="w-full px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+        {/* Left Side: Mobile Menu Button & Breadcrumbs */}
+        <div className="flex items-center gap-3 min-w-0">
+          {/* Mobile hamburger trigger */}
+          <button
+            onClick={onOpenMobileSidebar}
+            aria-label="Buka menu navigasi"
+            className="lg:hidden p-2 rounded-xl text-platinum-600 hover:text-platinum-900 hover:bg-platinum-100 transition-colors cursor-pointer shrink-0"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+
+          {/* Breadcrumb / Page Title */}
+          <div className="min-w-0">
+            <div className="flex items-center gap-1.5 text-[11px] text-platinum-400 font-medium">
+              <span>{currentRoute.section}</span>
+              <span>/</span>
+              <span className="text-dusk-blue-600 font-semibold truncate">
+                Dashboard
               </span>
             </div>
+            <h2 className="text-xs sm:text-sm font-bold text-platinum-900 tracking-tight truncate">
+              {currentRoute.page}
+            </h2>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 sm:gap-5">
+        {/* Right Side: Region Status, User Profile & Logout */}
+        <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+          {/* Region Tag */}
+          <div className="hidden md:flex items-center gap-2 px-2.5 py-1 bg-platinum-50 border border-platinum-200/80 rounded-lg text-xs text-platinum-600">
+            <span className="w-2 h-2 rounded-full bg-jade-500 animate-pulse" />
+            <span className="font-medium">Region Jawa Barat</span>
+          </div>
+
+          {/* User Info */}
           <div className="flex items-center gap-2.5 text-right">
             {user?.image && !imageError ? (
               <Image
@@ -44,10 +86,10 @@ export default function Header() {
               </div>
             )}
             <div className="hidden sm:block text-left">
-              <p className="text-xs text-platinum-500 leading-none">
-                Selamat datang,
+              <p className="text-[11px] text-platinum-400 leading-none">
+                Supervisor
               </p>
-              <p className="text-sm font-semibold text-platinum-800 leading-tight mt-0.5">
+              <p className="text-xs sm:text-sm font-semibold text-platinum-800 leading-tight mt-0.5">
                 {user?.firstName
                   ? `${user.firstName} ${user.lastName || ""}`
                   : "Supervisor"}
@@ -55,11 +97,12 @@ export default function Header() {
             </div>
           </div>
 
-          <div className="h-6 w-px bg-platinum-200" aria-hidden="true" />
+          <div className="h-5 w-px bg-platinum-200 hidden sm:block" aria-hidden="true" />
 
+          {/* Logout Button */}
           <button
             onClick={logout}
-            title="Keluar dari sistem"
+            title="Keluar dari sesi"
             className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-crimson-600 hover:text-crimson-700 bg-crimson-50 hover:bg-crimson-100/80 active:scale-95 border border-crimson-200/70 rounded-lg transition-all cursor-pointer"
           >
             <LogOut className="w-3.5 h-3.5" />

@@ -1,27 +1,14 @@
 "use client";
 
-import Header from "@/components/Header";
-import { useAuth } from "@/context/AuthContext";
 import { SalesItem } from "@/types";
-import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import salesRawData from "@/data/sales.json";
 import SalesChart from "@/components/SalesChart";
 import SummaryCards from "@/components/SummaryCard";
 import SearchFilter from "@/components/SearchFilter";
 import SalesTable from "@/components/SalesTable";
-import { Loader2 } from "lucide-react";
 
 export default function DashboardPage() {
-  const { user, isLoading } = useAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!isLoading && !user) {
-      router.replace("/login");
-    }
-  }, [user, isLoading, router]);
-
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedArea, setSelectedArea] = useState<string>("");
 
@@ -29,7 +16,7 @@ export default function DashboardPage() {
 
   const areaList = useMemo(() => {
     return Array.from(new Set(allSales.map((item) => item.area)));
-  }, []);
+  }, [allSales]);
 
   const filteredSales = useMemo(() => {
     return allSales.filter((item) => {
@@ -47,71 +34,52 @@ export default function DashboardPage() {
     setSelectedArea("");
   };
 
-  if (isLoading || !user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-platinum-100">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 text-dusk-blue-600 animate-spin" />
-          <p className="text-xs font-medium text-platinum-500">
-            Memuat dashboard supervisor...
+  return (
+    <>
+      {/* Header Info Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2">
+        <div>
+          <h1 className="text-xl sm:text-2xl font-extrabold text-platinum-900 tracking-tight">
+            Analisa Performa Salesman
+          </h1>
+          <p className="text-xs sm:text-sm text-platinum-500 mt-1">
+            Monitoring efektivitas kunjungan lapangan, total pencapaian order,
+            dan risiko out-of-stock (OOS).
           </p>
         </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen flex flex-col bg-platinum-50">
-      <Header />
-
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2">
-          <div>
-            <h1 className="text-xl sm:text-2xl font-extrabold text-platinum-900 tracking-tight">
-              Analisa Performa Salesman
-            </h1>
-            <p className="text-xs sm:text-sm text-platinum-500 mt-1">
-              Monitoring efektivitas kunjungan lapangan, total pencapaian order,
-              dan risiko out-of-stock (OOS).
-            </p>
-          </div>
-          <div className="self-start sm:self-auto flex items-center gap-2 px-3 py-1.5 bg-white border border-platinum-200 rounded-lg shadow-2xs text-xs text-platinum-600">
-            <span className="w-2 h-2 rounded-full bg-jade-500 animate-pulse" />
-            <span>Region Jawa Barat &bull; 5 Territory</span>
-          </div>
+        <div className="self-start sm:self-auto flex items-center gap-2 px-3 py-1.5 bg-white border border-platinum-200 rounded-lg shadow-2xs text-xs text-platinum-600">
+          <span className="w-2 h-2 rounded-full bg-jade-500 animate-pulse" />
+          <span>Region Jawa Barat &bull; 5 Territory</span>
         </div>
+      </div>
 
-        {/* Summary Cards */}
-        <section aria-label="Ringkasan Performa">
-          <SummaryCards data={filteredSales} />
-        </section>
+      {/* Summary Cards */}
+      <section aria-label="Ringkasan Performa">
+        <SummaryCards data={filteredSales} />
+      </section>
 
-        {/* Filter Data Sales */}
-        <section aria-label="Filter Data Sales">
-          <SearchFilter
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            selectedArea={selectedArea}
-            onAreaChange={setSelectedArea}
-            areaList={areaList}
-            onReset={handleResetFilter}
-          />
-        </section>
+      {/* Filter Data Sales */}
+      <section aria-label="Filter Data Sales">
+        <SearchFilter
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          selectedArea={selectedArea}
+          onAreaChange={setSelectedArea}
+          areaList={areaList}
+          onReset={handleResetFilter}
+        />
+      </section>
 
-        {/* Sales Chart */}
-        <section aria-label="Grafik Efektivitas Sales">
-          <SalesChart data={filteredSales} />
-        </section>
+      {/* Sales Chart */}
+      <section aria-label="Grafik Efektivitas Sales">
+        <SalesChart data={filteredSales} />
+      </section>
 
-        {/* Sales Table */}
-        <section aria-label="Tabel Data Sales">
-          <SalesTable data={filteredSales} />
-        </section>
-      </main>
-
-      <footer className="border-t border-platinum-200 bg-white py-4 mt-12 text-center text-xs text-platinum-400">
-        <p>&copy; {new Date().getFullYear()} Sales Automation Platform (SAP)</p>
-      </footer>
-    </div>
+      {/* Sales Table */}
+      <section aria-label="Tabel Data Sales">
+        <SalesTable data={filteredSales} />
+      </section>
+    </>
   );
 }
+

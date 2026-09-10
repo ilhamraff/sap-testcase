@@ -23,6 +23,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
     try {
       const storedUser = localStorage.getItem(USER_STORAGE_KEY);
       const storedToken = localStorage.getItem(TOKEN_STORAGE_KEY);
@@ -35,6 +36,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } finally {
       setIsLoading(false);
     }
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   const login = async (username: string, password: string) => {
